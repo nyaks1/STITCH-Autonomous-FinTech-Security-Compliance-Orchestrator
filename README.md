@@ -3,27 +3,64 @@
 > **Hackathon Submission:** Microsoft AI Agent Hackathon 2026
 > **Category Focus:** Agentic DevOps, Best Enterprise Solution, Best Multi-Agent System
 
+---
+
 ## The Problem
-Building FinTech apps like *Street Ledger* requires rigorous security and compliance auditing. Manual reviews are slow, and traditional CI/CD tools only catch "dumb" bugs. Developers need an intelligent teammate that understands **POPIA/GDPR regulations** and can fix vulnerabilities before they reach production.
+FinTech innovation in South Africa (like *Street Ledger*) moves at lightning speed, but **POPIA** compliance and security often lag behind. Traditional static analysis tools flag syntax errors but miss "contextual" risks—such as storing a South African ID number in an unencrypted Azure SQL table or exposing a database via a misconfigured Network Security Group. Manual audits are slow, expensive, and a bottleneck to enterprise scaling.
 
-##  The Solution
-**Stitch** is an AI-powered Security & Compliance team that lives in your "Inner Loop." It uses a multi-agent orchestration to find, justify, and fix security risks.
+## The Solution
+**Stitch** is an AI-powered Security & Compliance team that lives in your development "Inner Loop." It utilizes a multi-agent orchestration to find, justify, and fix security risks across both **Source Code** and **Live Azure Infrastructure** before they reach production.
 
-###  The Agents
-- **The Scout (Red Team):** Uses **Azure MCP** to scan the codebase for PII leaks, SQL injections, and weak encryption.
-- **The Judge (Governance):** Queries **Microsoft Foundry** to cross-reference Scout's findings against actual Financial Compliance Laws.
-- **The Architect (DevOps):** Triggers **GitHub Copilot Agent Mode** to write the patch and open a Pull Request.
+### The Agents
+* **The Scout (Red Team):** Performs deep Static Analysis on local code and Live Analysis on Azure. Using **Azure MCP**, it identifies PII leaks and audits live Network Security Groups (NSGs) for public exposure.
+* **The Judge (Governance):** A RAG-powered agent connected to **Microsoft Foundry**. It queries official POPIA/GDPR documentation to provide a legal "Verdict," assigning risk levels and citing specific regulatory clauses.
+* **The Architect (DevOps):** The "closer" that synthesizes the audit and verdict to draft a secure patch, following **GitHub Copilot Agent Mode** patterns to prepare a remediation Pull Request.
 
-##  Hero Technologies Used
-- **Microsoft Agent Framework:** Orchestrates the complex handoffs between the Scout, Judge, and Architect.
-- **Azure MCP (Model Context Protocol):** Provides the agents with "hands" to read local files and Azure SQL schemas.
-- **Microsoft Foundry:** Acts as the centralized "Law Book" for enterprise compliance data.
-- **GitHub Copilot Agent Mode:** Automates the remediation of identified security flaws.
+---
 
-##  Architecture Diagram
-[Insert Image Here - I can help you describe this for a diagram tool later]
+## Hero Technologies Used
+* **Microsoft Agent Framework:** Orchestrates the complex sequential handoff and shared memory between the specialized agents.
+* **Microsoft Foundry (Knowledge Base):** Serves as the centralized "Law Book," allowing agents to ground their reasoning in real-world regulatory PDFs.
+* **Azure MCP (Model Context Protocol):** Provides the agents with "hands" to interact securely with the local filesystem and live Azure Management APIs.
+* **Azure Developer CLI (azd):** Enables standardized, repeatable "one-click" deployment of the entire agentic infrastructure.
 
-##  Setup & Installation
-1. `git clone git@github.com:nyaks1/STITCH-Autonomous-FinTech-Security-Compliance-Orchestrator.git`
-2. `pip install -r requirements.txt`
-3. `azd auth login` && `azd up` (Deploys the infrastructure to Azure)
+---
+
+## Architecture Diagram
+
+
+---
+
+## Setup & Installation
+
+1.  **Clone the Repo:**
+    ```bash
+    git clone git@github.com:nyaks1/STITCH-Autonomous-FinTech-Security-Compliance-Orchestrator.git
+    cd STITCH-Autonomous-FinTech-Security-Compliance-Orchestrator
+    ```
+
+2.  **Environment Setup:**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # Windows: .\.venv\Scripts\activate
+    pip install -r requirements.txt
+    ```
+
+3.  **Configure Secrets:**
+    Create a `.env` file in the root directory:
+    ```text
+    AZURE_OPENAI_ENDPOINT="your-endpoint"
+    PROJECT_CONNECTION_STRING="your-foundry-connection-string"
+    AZURE_SUBSCRIPTION_ID="your-subscription-id"
+    ```
+
+4.  **Deploy Infrastructure:**
+    ```bash
+    azd auth login
+    azd up
+    ```
+
+## Running the Audit
+To execute the end-to-end security lifecycle on a target file (e.g., your Street Ledger source):
+```bash
+python main.py
