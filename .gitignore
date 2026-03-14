@@ -1,0 +1,26 @@
+# Python stuff
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+build/
+dist/
+
+# Azure & Environment Secrets (CRITICAL)
+.env
+.azure/
+*.env
+secrets.json
+.python-guest-book-api-key
+
+# VS Code & IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Microsoft Agent Framework / MCP
+mcp_cache/
+*.log
+agent_memory/

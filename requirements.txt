@@ -1,0 +1,14 @@
+# Core Framework
+agent-framework --pre
+mcp
+anyio
+
+# Azure Integration
+azure-identity
+azure-ai-projects
+python-dotenv
+
+# Utilities
+pydantic
+fastapi
+uvicorn
