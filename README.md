@@ -6,7 +6,7 @@
 ---
 
 ## The Problem
-FinTech innovation in South Africa (like *Street Ledger*) moves at lightning speed, but **POPIA** compliance and security often lag behind. Traditional static analysis tools flag syntax errors but miss "contextual" risks—such as storing a South African ID number in an unencrypted Azure SQL table or exposing a database via a misconfigured Network Security Group. Manual audits are slow, expensive, and a bottleneck to enterprise scaling.
+FinTech innovation in South Africa moves at lightning speed, but **POPIA** compliance and security often lag behind. Traditional static analysis tools flag syntax errors but miss "contextual" risks—such as storing a South African ID number in an unencrypted Azure SQL table or exposing a database via a misconfigured Network Security Group. Manual audits are slow, expensive, and a bottleneck to enterprise scaling.
 
 ## The Solution
 **Stitch** is an AI-powered Security & Compliance team that lives in your development "Inner Loop." It utilizes a multi-agent orchestration to find, justify, and fix security risks across both **Source Code** and **Live Azure Infrastructure** before they reach production.
@@ -18,7 +18,7 @@ FinTech innovation in South Africa (like *Street Ledger*) moves at lightning spe
 
 ---
 
-## Hero Technologies Used
+## Technologies Used
 * **Microsoft Agent Framework:** Orchestrates the complex sequential handoff and shared memory between the specialized agents.
 * **Microsoft Foundry (Knowledge Base):** Serves as the centralized "Law Book," allowing agents to ground their reasoning in real-world regulatory PDFs.
 * **Azure MCP (Model Context Protocol):** Provides the agents with "hands" to interact securely with the local filesystem and live Azure Management APIs.

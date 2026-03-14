@@ -1,14 +1,20 @@
-# Core Framework
+# --- Microsoft Agent Framework & MCP ---
 agent-framework --pre
 mcp
 anyio
 
-# Azure Integration
+# --- Azure AI & Foundry ---
 azure-identity
-azure-ai-projects
+azure-ai-projects>=2.0.0
+azure-ai-inference
+azure-ai-search-documents
 python-dotenv
 
-# Utilities
+# --- Live Infrastructure Auditing ---
+azure-mgmt-resource
+azure-mgmt-network
+
+# --- Web & Utilities ---
 pydantic
 fastapi
 uvicorn
