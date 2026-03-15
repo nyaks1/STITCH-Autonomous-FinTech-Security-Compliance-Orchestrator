@@ -1,14 +1,18 @@
 param name string
 param location string
 
+// Generate a unique suffix so your OpenAI endpoint is never taken
+var uniqueSuffix = substring(uniqueString(resourceGroup().id), 0, 6)
+var uniqueName = '${name}-${uniqueSuffix}'
+
 // 1. Azure OpenAI Service
 resource openAi 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
-  name: '${name}-openai'
+  name: '${uniqueName}-openai'
   location: location
   kind: 'AIServices'
   sku: { name: 'S0' }
   properties: {
-    customSubDomainName: '${name}-openai'
+    customSubDomainName: '${uniqueName}-openai'
     publicNetworkAccess: 'Enabled'
   }
 }
@@ -17,7 +21,10 @@ resource openAi 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
 resource gpt4o 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   parent: openAi
   name: 'gpt-4o'
-  sku: { name: 'GlobalStandard', capacity: 10 }
+  sku: { 
+    name: 'Standard' // <-- Changed from GlobalStandard
+    capacity: 5       // <-- Lowered to 5k Tokens Per Minute for the Free Tier
+  }
   properties: {
     model: { format: 'OpenAI', name: 'gpt-4o', version: '2024-05-13' }
   }
@@ -25,7 +32,7 @@ resource gpt4o 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
 
 // 3. Azure AI Search (For the Judge's Knowledge Base)
 resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
-  name: '${name}-search'
+  name: '${uniqueName}-search'
   location: location
   sku: { name: 'basic' }
   properties: {
@@ -35,18 +42,25 @@ resource search 'Microsoft.Search/searchServices@2024-03-01-preview' = {
   }
 }
 
-// 4. Foundry Hub & Project
+// 4. Foundry Hub
 resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' = {
-  name: '${name}-hub'
+  name: '${uniqueName}-hub'
   location: location
   kind: 'hub'
+  identity: {
+    type: 'SystemAssigned' // <-- This fixes the MSI error!
+  }
   properties: { friendlyName: 'Stitch Hub' }
 }
 
+// 5. Foundry Project
 resource aiProject 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' = {
-  name: '${name}-project'
+  name: '${uniqueName}-project'
   location: location
   kind: 'project'
+  identity: {
+    type: 'SystemAssigned' // <-- This fixes the MSI error!
+  }
   properties: {
     hubResourceId: aiHub.id
     friendlyName: 'Stitch Security Project'

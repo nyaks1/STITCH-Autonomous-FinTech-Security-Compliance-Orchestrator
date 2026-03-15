@@ -26,6 +26,18 @@ FinTech innovation in South Africa moves at lightning speed, but **POPIA** compl
 
 ---
 
+### Features
+- **Stitch-Scout:** Performs static analysis on local Python files and audits live Azure NSG configurations.
+- **Stitch-Judge:** Grounded in POPIA & GDPR standards to provide real-time compliance verdicts.
+- **Stitch-Architect:** Generates production-ready, secure patches for identified vulnerabilities.
+
+### Tech Stack
+- **Azure AI Foundry:** Agent orchestration and model hosting.
+- **GPT-4o:** The reasoning engine for security and legal analysis.
+- **Python & Bash:** Core logic and infrastructure auditing tools.
+
+---
+
 ## Architecture Diagram
 
 
@@ -59,6 +71,10 @@ FinTech innovation in South Africa moves at lightning speed, but **POPIA** compl
     azd auth login
     azd up
     ```
+### 📦 Installation
+1. Clone the repo.
+2. Add your `AZURE_OPENAI_CHAT_DEPLOYMENT_NAME` and `PROJECT_CONNECTION_STRING` to `.env`.
+3. Run `python main.py`.
 
 ## Running the Audit
 To execute the end-to-end security lifecycle on a target file (e.g., your Street Ledger source):
