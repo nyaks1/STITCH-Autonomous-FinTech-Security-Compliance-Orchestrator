@@ -12,8 +12,16 @@ from agents.orchestrator import StitchWorkflow
 
 load_dotenv()
 
+# ANSI Terminal Colors for the UI
+class Colors:
+    HEADER = '\033[95m'
+    GREEN = '\033[92m'
+    CYAN = '\033[96m'
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+
 async def main():
-    print("..Stitch is waking up...")
+    print(f"\n{Colors.CYAN}{Colors.BOLD}..Stitch is waking up...{Colors.RESET}\n")
     
     # 1. Use the unified async credential
     async with DefaultAzureCredential() as credential:
@@ -31,17 +39,17 @@ async def main():
             stitch = StitchWorkflow(chat_client, project_client)
             
             # 5. Run the security lifecycle on a target file
-            # Target 'main.py' to let Stitch audit its own structure!
             target = "vulnerable_sample.py"
             result = await stitch.run(target)
             
-            print("\n" + "="*30)
-            print("FINAL STITCH REPORT")
-            print("="*30)
-            print(f"FILE: {target}")
-            print("-" * 30)
-            print("VERDICT & PATCH PLAN:\n")
-           
+            # The Beautiful Final UI
+            print("\n" + f"{Colors.GREEN}{Colors.BOLD}================================================={Colors.RESET}")
+            print(f"{Colors.GREEN}{Colors.BOLD}              FINAL STITCH REPORT                {Colors.RESET}")
+            print(f"{Colors.GREEN}{Colors.BOLD}================================================={Colors.RESET}")
+            print(f"{Colors.HEADER}FILE: {target}{Colors.RESET}")
+            print("-" * 50)
+            print(f"{Colors.CYAN}{Colors.BOLD}VERDICT & PATCH PLAN:\n{Colors.RESET}")
+            
             def hunt_for_text(obj):
                 found_texts = []
                 if isinstance(obj, list):
@@ -64,10 +72,10 @@ async def main():
                 print("Could not parse text natively. Raw object dump:")
                 print(result)
                 
-            print("\n" + "="*30)
+            print("\n" + f"{Colors.GREEN}{Colors.BOLD}================================================={Colors.RESET}\n")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except Exception as e:
-        print(f"Stitch encountered an error: {e}")
+        print(f"\n\033[91m\033[1mStitch encountered an error: {e}\033[0m")
