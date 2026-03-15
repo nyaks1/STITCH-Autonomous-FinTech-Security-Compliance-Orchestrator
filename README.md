@@ -18,7 +18,7 @@ FinTech innovation in South Africa moves at lightning speed, but **POPIA** compl
 
 ---
 
-## Technologies Used
+## Hero Technologies Used
 * **Microsoft Agent Framework:** Orchestrates the complex sequential handoff and shared memory between the specialized agents.
 * **Microsoft Foundry (Knowledge Base):** Serves as the centralized "Law Book," allowing agents to ground their reasoning in real-world regulatory PDFs.
 * **Azure MCP (Model Context Protocol):** Provides the agents with "hands" to interact securely with the local filesystem and live Azure Management APIs.
